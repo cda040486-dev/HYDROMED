@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Hydromed - Login</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            background: linear-gradient(135deg, #0a192f, #112240, #1f4068);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 35px;
+            width: 380px;
+            color: white;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+            animation: fadeIn 0.8s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #4fc3f7;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-size: 14px;
+            color: #a8d0ff;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 6px;
+            border-radius: 10px;
+            border: none;
+            outline: none;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 14px;
+        }
+
+        select option {
+            color: black;
+        }
+
+        .btn {
+            margin-top: 25px;
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(90deg, #2196f3, #21cbf3);
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px #21cbf3;
+        }
+
+        .mensaje {
+            text-align: center;
+            margin-top: 15px;
+            color: #00e676;
+            font-weight: bold;
+        }
+
+        .icono {
+            text-align: center;
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="card">
+
+        <div class="icono">🌊</div>
+
+        <h2>Log in</h2>
+
+        <form id="formLogin">
+
+            <!-- ================= CORREO ================= -->
+            <label>Correo electrónico</label>
+            <input type="email" id="correo" required>
+
+            <!-- ================= CONTRASEÑA ================= -->
+            <label>Contraseña</label>
+            <input type="password" id="contrasena" required>
+
+            <!-- ================= BOTÓN ================= -->
+            <button class="btn" type="submit">Ingresar</button>
+
+            <!-- ================= BOTÓN ================= -->
+            <!-- <h4 style="text-align: center; margin-top: 20px;">¿Sin usuario?</h4>
+            <center><a href="crear-login.html" style="text-align: center; text-decoration: none; margin-top: 20px; color: #ffffff;">Crear Usuario</a>
+            </center> -->
+        </form>
+
+        <div class="mensaje" id="mensaje"></div>
+
+    </div>
+
+    <script>
+        document.getElementById("formLogin").addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            // CAPTURA DATOS LIMPIOS
+            const correo = document.getElementById("correo").value;
+            const contrasena = document.getElementById("contrasena").value;
+
+            fetch("./users.csv")
+                .then(response => response.text())
+                .then(data => {
+                    const rows = data.split("\n");
+                    const users = rows.map(row => {
+                        const [id, name, email, pass] = row.split(",").map(item => item.trim());
+                        return { email, pass };
+                    });
+                    const user = users.find(u => u.email === correo && u.pass === contrasena);
+
+                    if (user) {
+                        window.location.href = "encuesta.html";
+                        this.reset();
+                    } else {
+                        // MENSAJE
+                        document.getElementById("mensaje").textContent =
+                            "❌ Usuario no encontrado. Verifica tu correo y contraseña.";
+                    }
+                });
+
+            //   // OBTENER DATA EXISTENTE
+            //   let encuestas = JSON.parse(localStorage.getItem("encuestas")) || [];
+
+            //   // GUARDAR NUEVO REGISTRO
+            //   encuestas.push({
+            //     comuna: comuna,
+            //     inundada: inundada,
+            //     danificado: danificado
+            //   });
+
+            //   localStorage.setItem("encuestas", JSON.stringify(encuestas));
+
+            //   // MENSAJE
+            //   document.getElementById("mensaje").textContent =
+            //     "✅ Encuesta enviada correctamente";
+
+            // LIMPIAR FORM
+            
+        });
+    </script>
+
+</body>
+
+</html>
