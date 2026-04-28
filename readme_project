@@ -1,0 +1,31 @@
+# 🌊 HYDROMED
+
+Hydromed es una plataforma web de alertas tempranas de inundación para la ciudad de Medellín.
+
+## 🚨 ¿Qué hace?
+
+- Monitorea condiciones en tiempo real mediante integración con:
+  - SIATA
+  - IDEAM
+- Permite a los usuarios reportar zonas inundadas mediante encuestas
+- Visualiza la información en un mapa interactivo (Google Maps)
+- Facilita el seguimiento de eventos de inundación en la ciudad
+
+## 🧠 ¿Por qué es importante?
+
+Hydromed busca mejorar la prevención y respuesta ante inundaciones, combinando datos oficiales con reportes ciudadanos para una mejor toma de decisiones.
+
+## 🛠️ Tecnologías
+
+- HTML
+- CSS
+- JavaScript
+- Google Maps API
+
+## 📍 Enfoque
+
+Integración de datos ambientales + participación ciudadana + visualización geográfica (GIS)
+
+---
+
+🚀 Proyecto en desarrollo
